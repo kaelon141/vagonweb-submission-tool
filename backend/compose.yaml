@@ -1,0 +1,7 @@
+﻿services:
+  vagonwebsubmissiontool.web:
+    image: vagonwebsubmissiontool.web
+    build:
+      context: .
+      dockerfile: src/VagonWebSubmissionTool.Web/Dockerfile
+
