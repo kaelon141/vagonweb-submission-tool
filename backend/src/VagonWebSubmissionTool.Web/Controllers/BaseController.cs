@@ -5,7 +5,7 @@ namespace VagonWebSubmissionTool.Web.Controllers;
 
 public class BaseController : ControllerBase
 {
-    public IActionResult Html(string html)
+    protected IActionResult Html(string html)
     {
         return new ContentResult
         {

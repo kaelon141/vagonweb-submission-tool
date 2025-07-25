@@ -1,15 +1,17 @@
 using CSharpFunctionalExtensions;
 
 namespace VagonWebSubmissionTool.Application.Services;
+using CountryCodeDto = IUicWagonNumbersService.CountryCodeDto;
 
 public interface IUicWagonNumbersService
 {
-    public Result<string, string> GetCountryCodeByUicNumber(string uicNumber);
+    public record CountryCodeDto(string CountryCode);
+    public Result<CountryCodeDto, string> GetCountryCodeByUicNumber(string uicNumber);
 }
 
 public class UicWagonNumbersService : IUicWagonNumbersService
 {
-    private Dictionary<int, string> _countryCodes = new()
+    private readonly Dictionary<int, string> _countryCodes = new()
     {
         { 81, "A" },
         { 41, "AL" },
@@ -55,21 +57,21 @@ public class UicWagonNumbersService : IUicWagonNumbersService
         { 66, "TJ" }
     };
     
-    public Result<string, string> GetCountryCodeByUicNumber(string uicNumber)
+    public Result<CountryCodeDto, string> GetCountryCodeByUicNumber(string uicNumber)
     {
         uicNumber = SanitizeUicNumber(uicNumber);
         if (uicNumber.Length != 12)
         {
-            return Result.Failure<string, string>("Invalid UIC Number");
+            return Result.Failure<CountryCodeDto, string>("Invalid UIC Number");
         }
 
         var uicCountryCode = int.Parse(uicNumber[2..4]);
         return _countryCodes.TryGetValue(uicCountryCode, out var countryCode)
-            ? Result.Success<string, string>(countryCode)
-            : Result.Failure<string, string>("Invalid UIC Country Code");
+            ? new CountryCodeDto(countryCode)
+            : "Invalid UIC Country Code";
     }
 
-    private string SanitizeUicNumber(string uicNumber)
+    private static string SanitizeUicNumber(string uicNumber)
     {
         return uicNumber.Trim().Replace(" ", string.Empty).Replace("-", string.Empty);
     }
