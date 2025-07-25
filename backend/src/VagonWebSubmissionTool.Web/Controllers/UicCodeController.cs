@@ -1,12 +1,20 @@
+using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using VagonWebSubmissionTool.Application.Services;
 
 namespace VagonWebSubmissionTool.Web.Controllers;
 
+[ApiController]
 [Route("api/v1/uic-wagon-numbers")]
 public class UicCodeController(IUicWagonNumbersService uicWagonNumbersService) : BaseController
 {
-    [Route("{uicWagonNumber}/country")]
+    
+    
+    [HttpGet("{uicWagonNumber}/country")]
+    [EndpointSummary("Attempt to get the country code from a UIC wagon number.")]
+    [ProducesResponseType(typeof(IUicWagonNumbersService.CountryCodeDto), StatusCodes.Status200OK, MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public IActionResult GetCountryCodeByUicNumber(string uicWagonNumber)
     {
         var result = uicWagonNumbersService.GetCountryCodeByUicNumber(uicWagonNumber);

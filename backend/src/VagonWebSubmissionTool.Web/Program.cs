@@ -9,7 +9,6 @@ VagonWebSubmissionTool.Application.ServiceRegistration.RegisterServices(builder.
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient(Constants.HttpClientName, client =>
 {
