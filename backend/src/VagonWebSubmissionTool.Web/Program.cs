@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.OpenApi;
 using VagonWebSubmissionTool.Application;
 using VagonWebSubmissionTool.Application.Services;
 using VagonWebSubmissionTool.Web;
+using VagonWebSubmissionTool.Web.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,10 @@ VagonWebSubmissionTool.Application.ServiceRegistration.RegisterServices(builder.
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer<OpenApiAcceptLanguageTransformer>();
+});
 
 builder.Services.AddMemoryCache();
 

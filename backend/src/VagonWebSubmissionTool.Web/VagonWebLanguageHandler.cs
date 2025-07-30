@@ -12,7 +12,7 @@ public class VagonWebLanguageHandler(ILanguageResolver languageResolver) : Deleg
     {
         var language = languageResolver.Resolve();
         
-        request.Headers.Add("Cookie", $"vagonweb[lang]={language.ToVagonwebLanguageCode()}");
+        request.Headers.Add("Cookie", $"vagonweb[lang]={language.ToVagonWebLanguageCode()}");
         
         return base.SendAsync(request, cancellationToken);
     }

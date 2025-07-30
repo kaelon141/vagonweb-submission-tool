@@ -12,6 +12,11 @@ public enum Language
     Spanish = 5
 }
 
+public static class Languages
+{
+    public static Language[] All => [Language.English, Language.Czech, Language.German, Language.Polish, Language.Hungarian, Language.Spanish];
+}
+
 public static class LanguageBuilder
 {
     public static Maybe<Language> TryParseLanguageCode(string languageCode)
@@ -32,15 +37,36 @@ public static class LanguageBuilder
         };
     }
 
-    public static string ToVagonwebLanguageCode(this Language language)
-        => language switch
-        {
-            Language.English => "en",
-            Language.Czech => "cs",
-            Language.German => "de",
-            Language.Polish => "pl",
-            Language.Hungarian => "hu",
-            Language.Spanish => "es",
-            _ => throw new ArgumentOutOfRangeException(nameof(language), language, null)
-        };
+    public static string ToVagonWebLanguageCode(this Language language) => language switch
+    {
+        Language.English => "en",
+        Language.Czech => "cs",
+        Language.German => "de",
+        Language.Polish => "pl",
+        Language.Hungarian => "hu",
+        Language.Spanish => "es",
+        _ => throw new ArgumentOutOfRangeException(nameof(language), language, null)
+    };
+
+    public static string ToBcp47Code(this Language language) => language switch
+    {
+        Language.English => "en-GB",
+        Language.Czech => "cs-CZ",
+        Language.German => "de-DE",
+        Language.Polish => "pl-PL",
+        Language.Hungarian => "hu-HU",
+        Language.Spanish => "es-ES",
+        _ => throw new ArgumentOutOfRangeException(nameof(language), language, null)
+    };
+
+    public static string ToNativeName(this Language language) => language switch
+    {
+        Language.English => "English",
+        Language.Czech => "Český",
+        Language.German => "Deutsch",
+        Language.Polish => "Polski",
+        Language.Hungarian => "Magyar",
+        Language.Spanish => "Español",
+        _ => throw new ArgumentOutOfRangeException(nameof(language), language, null)
+    };
 }

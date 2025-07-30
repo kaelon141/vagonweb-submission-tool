@@ -37,7 +37,7 @@ public class VagonWebCachingHandler(IMemoryCache cache, TimeSpan? cachingPeriod 
         sb.Append("GET:");
         sb.Append(request.RequestUri!);
 
-        // Cookies: parse vagonweb[lang] value specifically as we need to cache response on a per-language level.
+        // Cookies: parse vagonweb[lang] value specifically as we need to cache responses on a per-language level.
         string? langCookieValue = null;
 
         if (request.Headers.TryGetValues("Cookie", out var cookieHeaders))
@@ -56,7 +56,7 @@ public class VagonWebCachingHandler(IMemoryCache cache, TimeSpan? cachingPeriod 
             }
         }
 
-        sb.Append($"|langCookie:{langCookieValue ?? ILanguageResolver.DefaultLanguage.ToVagonwebLanguageCode()}");
+        sb.Append($"|langCookie:{langCookieValue ?? ILanguageResolver.DefaultLanguage.ToVagonWebLanguageCode()}");
 
         return sb.ToString().GetHashCode().ToString();
     }

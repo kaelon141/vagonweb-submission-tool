@@ -5,7 +5,7 @@ namespace VagonWebSubmissionTool.Web;
 
 /// <summary>
 /// Language resolver that can statelessly determine which language to use based on the Accept-Language header in the current HTTP request.
-/// Default to English when the Accept-Language header is not specific or when no supported language is included in the header.
+/// Default to English when the Accept-Language header is not specified or when no supported language is included in the header.
 /// </summary>
 /// <param name="httpContextAccessor"></param>
 public class HttpRequestLanguageResolver(IHttpContextAccessor httpContextAccessor) : ILanguageResolver
